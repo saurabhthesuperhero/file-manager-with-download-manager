@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/icon_view"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/file_name_text_view"
+            android:layout_width="match_parent"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/icon_view"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black"
+            tools:text="document" />
+
+        <TextView
+            android:id="@+id/file_date"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/file_name_text_view"
+            android:textColor="@color/black"
+            tools:text="12 june" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/cardview_shadow_start_color" />
+    </LinearLayout>
+</LinearLayout>
