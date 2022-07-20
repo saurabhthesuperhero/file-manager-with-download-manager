@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,15 +40,31 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
 
         model_file selectedFile = model_files.get(position);
         holder.textView.setText(selectedFile.getFileName() + "." + selectedFile.fileExt);
+        String file = Environment.getExternalStorageDirectory() + "/Download/OMG/"+ selectedFile.getFileName() + "." + selectedFile.fileExt;
 
-        String file = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + selectedFile.getFileName() + "." + selectedFile.fileExt;
+
         if (isFileExist(file)) {
             //check for different filetypes
             File f = new File(file);
             Date lastModDate = new Date(f.lastModified());
             holder.date.setText(lastModDate.toString());
             holder.date.setVisibility(View.VISIBLE);
-            holder.imageView.setImageURI(Uri.parse(file));
+            String ext = selectedFile.fileExt;
+            if (ext.equals("pdf")) {
+                holder.imageView.setImageResource(R.drawable.ic_baseline_picture_as_pdf_24);
+            } else if (selectedFile.fileExt.equals("jpg") || selectedFile.fileExt.equals("png") || selectedFile.fileExt.equals("jpeg") || selectedFile.fileExt.equals("gif")) {
+                holder.imageView.setImageURI(Uri.parse(file));
+            } else if (ext.contains("mp3") || ext.contains("wav")) {
+                holder.imageView.setImageResource(R.drawable.ic_baseline_music_note_24);
+
+            } else if (ext.contains("3gp") || ext.toString().contains("mpg") || ext.toString().contains("mpeg") || ext.toString().contains("mpe") || ext.toString().contains("mp4") || ext.toString().contains("avi")) {
+                holder.imageView.setImageResource(R.drawable.ic_baseline_videocam_24);
+
+            } else {
+                holder.imageView.setImageResource(R.drawable.ic_baseline_insert_drive_file_24);
+
+            }
+
         } else {
             holder.imageView.setImageResource(R.drawable.download_icon);
         }
@@ -69,7 +86,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView,date;
+        TextView textView, date;
         ImageView imageView;
 
         public ViewHolder(View itemView) {
@@ -85,7 +102,11 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
                     int position = getAdapterPosition();
 
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(model_files.get(position));
+                        try {
+                            listener.onItemClick(model_files.get(position));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -93,7 +114,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
     }
 
     public interface OnItemClickListener {
-        void onItemClick(model_file model_file);
+        void onItemClick(model_file model_file) throws IOException;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
