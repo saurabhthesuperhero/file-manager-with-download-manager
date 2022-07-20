@@ -105,12 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
 
                 final Request request = new Request(url, file);
+                Log.e(TAG, "onItemClick: "+url+" "+file );
                 request.setPriority(Priority.HIGH);
                 request.setNetworkType(NetworkType.ALL);
 
                 fetch.enqueue(request, updatedRequest -> {
                     //Request was successfully enqueued for download.
+                    Log.e(TAG, "onItemClick: "+request.getUrl() );
                 }, error -> {
+                    Log.e(TAG, "onItemClick: error "+error.getValue()+" "+error.name()+" " );
                     //An error occurred enqueuing the request.
                 });
 
@@ -125,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isFileExist(String path) {
         File file = new File(path);
-        return file.isFile();
+        Log.e(TAG, "isFileExist: "+file.exists() );
+        return  (file.exists() && file.getAbsoluteFile().exists());
+//        return file.exists();
     }
 
 
@@ -283,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText(MainActivity.this, "Storage permission is requires,please allow from settings", Toast.LENGTH_SHORT).show();
         } else
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 111);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.MANAGE_EXTERNAL_STORAGE}, 111);
     }
 
 }
