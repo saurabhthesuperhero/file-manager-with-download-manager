@@ -20,11 +20,11 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
     Context context;
     private OnItemClickListener listener;
 
-    ArrayList<model_file> model_files;
+    ArrayList<Model_file> Model_files;
 
-    public Adapter_recyclerview(Context context, ArrayList<model_file> model_files) {
+    public Adapter_recyclerview(Context context, ArrayList<Model_file> Model_files) {
         this.context = context;
-        this.model_files = model_files;
+        this.Model_files = Model_files;
     }
 
 
@@ -38,7 +38,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
     @Override
     public void onBindViewHolder(Adapter_recyclerview.ViewHolder holder, int position) {
 
-        model_file selectedFile = model_files.get(position);
+        Model_file selectedFile = Model_files.get(position);
         holder.textView.setText(selectedFile.getFileName() + "." + selectedFile.fileExt);
         String file = Environment.getExternalStorageDirectory() + "/Download/OMG/"+ selectedFile.getFileName() + "." + selectedFile.fileExt;
 
@@ -80,7 +80,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
 
     @Override
     public int getItemCount() {
-        return model_files.size();
+        return Model_files.size();
     }
 
 
@@ -103,7 +103,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
 
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         try {
-                            listener.onItemClick(model_files.get(position));
+                            listener.onItemClick(Model_files.get(position));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -114,7 +114,7 @@ public class Adapter_recyclerview extends RecyclerView.Adapter<Adapter_recyclerv
     }
 
     public interface OnItemClickListener {
-        void onItemClick(model_file model_file) throws IOException;
+        void onItemClick(Model_file model_file) throws IOException;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

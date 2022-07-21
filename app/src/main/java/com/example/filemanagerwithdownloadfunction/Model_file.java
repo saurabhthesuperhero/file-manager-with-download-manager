@@ -1,12 +1,21 @@
 package com.example.filemanagerwithdownloadfunction;
 
-public class model_file {
+public class Model_file {
     String fileId;
     String fileName;
     String fileExt;
     String fileUrl;
+    long dRef;
 
-    public model_file() {
+    public long getdRef() {
+        return dRef;
+    }
+
+    public void setdRef(long dRef) {
+        this.dRef = dRef;
+    }
+
+    public Model_file() {
 
     }
 
@@ -43,7 +52,7 @@ public class model_file {
         this.fileUrl = fileUrl;
     }
 
-    public model_file(String fileId, String fileName, String fileExt, String fileUrl) {
+    public Model_file(String fileId, String fileName, String fileExt, String fileUrl) {
 
         this.fileId = fileId;
         this.fileName = fileName;
